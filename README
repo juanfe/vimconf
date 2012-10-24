@@ -2,3 +2,7 @@ Copy .vimrc and .vim in the home directory.
 
 The packages to install are
 atp-get install vim-latexsuite  vim-vimoutliner
+
+and
+
+git clone https://github.com/gmarik/vundle
