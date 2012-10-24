@@ -1,3 +1,27 @@
+" Configuration of Vundle
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+"" My Bundle here:
+""
+Bundle 'Lokaltog/vim-powerline'
+"Bundle 'tpope/vim-fugitive'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'tpope/vim-rails.git'
+"" vim-scripts repos
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
+"" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+
+
 " Activamos el resaltado de sintaxis
  syntax on
 "
