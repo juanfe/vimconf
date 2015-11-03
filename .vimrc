@@ -10,8 +10,13 @@ Bundle 'gmarik/vundle'
 
 "" My Bundle here:
 ""
+" Para que funcione powerline inslate vim-python o vim-pyhton-jedi
 Bundle 'Lokaltog/vim-powerline'
-"Bundle 'tpope/vim-fugitive'
+" Para usar pyflakes también se necesita vim-python o vim-python-jedi
+" Y posiblemente python-astroid
+Bundle 'kevinw/pyflakes-vim'
+" fugitive es un plugin para commandos de git, use g<git command>
+Bundle 'tpope/vim-fugitive'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'
