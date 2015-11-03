@@ -61,23 +61,30 @@ filetype plugin on
 
 filetype plugin indent on
 
-"python debugger
-"autocmd FileType python compiler pylint
+augroup vimrc_autocmds
+    autocmd!
+    "python debugger
+    "autocmd FileType python compiler pylint
 
-"autocomlete to Javascript
-autocmd FileType javascript set omnifunc=javascript#CompleteJS
+    "autocomlete to Javascript
+    autocmd FileType javascript set omnifunc=javascript#CompleteJS
 
-"autocomlete to css
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+    "autocomlete to css
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
-"autocomlete to php
-"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+    "autocomlete to php
+    "autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
-"autocomlete to html
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+    "autocomlete to html
+    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
-"autocomlete to python
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+    "autocomlete to python
+    autocmd FileType python set omnifunc=pythoncomplete#Complete
+    " highlight characters past column 120
+    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType python match Excess /\%120v.*/
+    autocmd FileType python set nowrap
+augroup END
 
 set backspace=indent,eol,start
 
