@@ -96,6 +96,13 @@ set backspace=indent,eol,start
 "Command history
 set history=50
 
+" Powerline setup
+" To install the font, download from : https://github.com/powerline/fonts
+" And copy to ~/.fonts
+" git clone https://github.com/powerline/fonts.git
+" Muy segurament este font se installa con dejavu con vim-pyhton-jedi
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\9
+set laststatus=2
 
 " This code autocloses parenthesis, brackets, etc around cursor
 ":inoremap ( ()<ESC>i
