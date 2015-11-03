@@ -24,6 +24,80 @@ class Test(harness.Test):
         self.flakes('import fu; fu, bar = 3', m.RedefinedWhileUnused)
         self.flakes('import fu; [fu, bar] = 3', m.RedefinedWhileUnused)
 
+    def test_redefinedIf(self):
+        """
+        Test that importing a module twice within an if
+        block does raise a warning.
+
+        Issue #13: https://github.com/kevinw/pyflakes/issues/13
+        """
+        self.flakes('''
+        i = 2
+        if i==1:
+            import os
+            import os
+        os.path''', m.RedefinedWhileUnused)
+
+    def test_redefinedIfElse(self):
+        """
+        Test that importing a module twice in if
+        and else blocks does not raise a warning.
+
+        Issue #13: https://github.com/kevinw/pyflakes/issues/13
+        """
+        self.flakes('''
+        i = 2
+        if i==1:
+            import os
+        else:
+            import os
+        os.path''')
+
+    def test_redefinedTry(self):
+        """
+        Test that importing a module twice in an try block
+        does raise a warning.
+
+        Issue #13: https://github.com/kevinw/pyflakes/issues/13
+        """
+        self.flakes('''
+        try:
+            import os
+            import os
+        except:
+            pass
+        os.path''', m.RedefinedWhileUnused)
+
+    def test_redefinedTryExcept(self):
+        """
+        Test that importing a module twice in an try
+        and except block does not raise a warning.
+
+        Issue #13: https://github.com/kevinw/pyflakes/issues/13
+        """
+        self.flakes('''
+        try:
+            import os
+        except:
+            import os
+        os.path''')
+
+    def test_redefinedTryNested(self):
+        """
+        Test that importing a module twice using a nested
+        try/except and if blocks does not issue a warning.
+
+        Issue #13: https://github.com/kevinw/pyflakes/issues/13
+        """
+        self.flakes('''
+        try:
+            if True:
+                if True:
+                    import os
+        except:
+            import os
+        os.path''')
+
     def test_redefinedByFunction(self):
         self.flakes('''
         import fu
@@ -50,6 +124,19 @@ class Test(harness.Test):
         class fu:
             pass
         ''', m.RedefinedWhileUnused)
+
+
+    def test_redefinedBySubclass(self):
+        """
+        If an imported name is redefined by a class statement which also uses
+        that name in the bases list, no warning is emitted.
+        """
+        self.flakes('''
+        from fu import bar
+        class bar(bar):
+            pass
+        ''')
+
 
     def test_redefinedInClass(self):
         """
@@ -377,9 +464,55 @@ class Test(harness.Test):
     def test_importStar(self):
         self.flakes('from fu import *', m.ImportStarUsed)
 
+
     def test_packageImport(self):
-        self.flakes('import fu.bar; fu.bar')
-    test_packageImport.todo = "this has been hacked to treat 'import fu.bar' as just 'import fu'"
+        """
+        If a dotted name is imported and used, no warning is reported.
+        """
+        self.flakes('''
+        import fu.bar
+        fu.bar
+        ''')
+
+
+    def test_unusedPackageImport(self):
+        """
+        If a dotted name is imported and not used, an unused import warning is
+        reported.
+        """
+        self.flakes('import fu.bar', m.UnusedImport)
+
+
+    def test_duplicateSubmoduleImport(self):
+        """
+        If a submodule of a package is imported twice, an unused import warning
+        and a redefined while unused warning are reported.
+        """
+        self.flakes('''
+        import fu.bar, fu.bar
+        fu.bar
+        ''', m.RedefinedWhileUnused)
+        self.flakes('''
+        import fu.bar
+        import fu.bar
+        fu.bar
+        ''', m.RedefinedWhileUnused)
+
+
+    def test_differentSubmoduleImport(self):
+        """
+        If two different submodules of a package are imported, no duplicate
+        import warning is reported for the package.
+        """
+        self.flakes('''
+        import fu.bar, fu.baz
+        fu.bar, fu.baz
+        ''')
+        self.flakes('''
+        import fu.bar
+        import fu.baz
+        fu.bar, fu.baz
+        ''')
 
     def test_assignRHSFirst(self):
         self.flakes('import fu; fu = fu')
@@ -401,6 +534,7 @@ class Test(harness.Test):
         import fu
         def a():
             fu = 3
+            return fu
         fu
         ''')
 
@@ -431,11 +565,6 @@ class Test(harness.Test):
         ''')
     test_importingForImportError.todo = ''
 
-    def test_explicitlyPublic(self):
-        '''imports mentioned in __all__ are not unused'''
-        self.flakes('import fu; __all__ = ["fu"]')
-    test_explicitlyPublic.todo = "this would require importing the module or doing smarter parsing"
-
     def test_importedInClass(self):
         '''Imports in class scope can be used through self'''
         self.flakes('''
@@ -449,6 +578,10 @@ class Test(harness.Test):
     def test_futureImport(self):
         '''__future__ is special'''
         self.flakes('from __future__ import division')
+        self.flakes('''
+        "docstring is allowed before future import"
+        from __future__ import division
+        ''')
 
     def test_futureImportFirst(self):
         """
@@ -458,15 +591,82 @@ class Test(harness.Test):
         x = 5
         from __future__ import division
         ''', m.LateFutureImport)
+        self.flakes('''
+        from foo import bar
+        from __future__ import division
+        bar
+        ''', m.LateFutureImport)
 
 
 
-class Python24Tests(harness.Test):
+class TestSpecialAll(harness.Test):
     """
-    Tests for checking of syntax which is valid in Python 2.4 and newer.
+    Tests for suppression of unused import warnings by C{__all__}.
     """
-    if version_info < (2, 4):
-        skip = "Python 2.4 required for generator expression and decorator tests."
+    def test_ignoredInFunction(self):
+        """
+        An C{__all__} definition does not suppress unused import warnings in a
+        function scope.
+        """
+        self.flakes('''
+        def foo():
+            import bar
+            __all__ = ["bar"]
+        ''', m.UnusedImport, m.UnusedVariable)
+
+
+    def test_ignoredInClass(self):
+        """
+        An C{__all__} definition does not suppress unused import warnings in a
+        class scope.
+        """
+        self.flakes('''
+        class foo:
+            import bar
+            __all__ = ["bar"]
+        ''', m.UnusedImport)
+
+
+    def test_warningSuppressed(self):
+        """
+        If a name is imported and unused but is named in C{__all__}, no warning
+        is reported.
+        """
+        self.flakes('''
+        import foo
+        __all__ = ["foo"]
+        ''')
+
+
+    def test_unrecognizable(self):
+        """
+        If C{__all__} is defined in a way that can't be recognized statically,
+        it is ignored.
+        """
+        self.flakes('''
+        import foo
+        __all__ = ["f" + "oo"]
+        ''', m.UnusedImport)
+        self.flakes('''
+        import foo
+        __all__ = [] + ["foo"]
+        ''', m.UnusedImport)
+
+
+    def test_unboundExported(self):
+        """
+        If C{__all__} includes a name which is not bound, a warning is emitted.
+        """
+        self.flakes('''
+        __all__ = ["foo"]
+        ''', m.UndefinedExport)
+
+        # Skip this in __init__.py though, since the rules there are a little
+        # different.
+        for filename in ["foo/__init__.py", "__init__.py"]:
+            self.flakes('''
+            __all__ = ["foo"]
+            ''', filename=filename)
 
 
     def test_usedInGenExp(self):
@@ -509,4 +709,39 @@ class Python24Tests(harness.Test):
         @decorate
         def f():
             return "hello"
+        ''', m.UndefinedName)
+
+
+class Python26Tests(harness.Test):
+    """
+    Tests for checking of syntax which is valid in PYthon 2.6 and newer.
+    """
+    if version_info < (2, 6):
+        skip = "Python 2.6 required for class decorator tests."
+
+
+    def test_usedAsClassDecorator(self):
+        """
+        Using an imported name as a class decorator results in no warnings,
+        but using an undefined name as a class decorator results in an
+        undefined name warning.
+        """
+        self.flakes('''
+        from interior import decorate
+        @decorate
+        class foo:
+            pass
+        ''')
+
+        self.flakes('''
+        from interior import decorate
+        @decorate("foo")
+        class bar:
+            pass
+        ''')
+
+        self.flakes('''
+        @decorate
+        class foo:
+            pass
         ''', m.UndefinedName)
