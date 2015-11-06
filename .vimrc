@@ -15,7 +15,9 @@ Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-powerline'
 " Para usar pyflakes también se necesita vim-python o vim-python-jedi
 " Y posiblemente python-astroid
-Bundle 'kevinw/pyflakes-vim'
+"Bundle 'kevinw/pyflakes-vim'
+" Python-mode bundle
+Bundle 'klen/python-mode'
 " fugitive es un plugin para commandos de git, use g<git command>
 Bundle 'tpope/vim-fugitive'
 " NerdTree es un plugin para ver archivos como un arbol, use F2 y ? para ver
