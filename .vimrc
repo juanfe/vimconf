@@ -10,6 +10,7 @@ Bundle 'gmarik/vundle'
 
 "" My Bundle here:
 ""
+"" Para instalar los Bundle ejecute :BundleInstall
 " Para que funcione powerline inslate vim-python o vim-pyhton-jedi
 Bundle 'Lokaltog/vim-powerline'
 " Para usar pyflakes también se necesita vim-python o vim-python-jedi
