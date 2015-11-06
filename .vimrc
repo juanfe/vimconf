@@ -18,6 +18,9 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'kevinw/pyflakes-vim'
 " fugitive es un plugin para commandos de git, use g<git command>
 Bundle 'tpope/vim-fugitive'
+" NerdTree es un plugin para ver archivos como un arbol, use F2 y ? para ver
+" cómo funciona, adicione el map <F2> :NERDTreeToggle<CR>
+Bundle 'scrooloose/nerdtree'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'
@@ -128,4 +131,6 @@ let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1%}\r{% endwith %}"
 let g:surround_{char2nr("c")} = "{% comment\1 \r..*\r &\1%}\r{% endcomment %}"
 let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1%}\r{% endfor %}"
 
+":nmap <F2> : :NERDTreeToggle<CR>
+:map :nt : :NERDTreeToggle<CR>
 :nmap :ni : :setlocal noautoindent <CR> :setlocal nocindent <CR> :setlocal nosmartindent <CR> :setlocal indentexpr=
