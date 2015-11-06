@@ -11,7 +11,7 @@ Bundle 'gmarik/vundle'
 "" My Bundle here:
 ""
 "" Para instalar los Bundle ejecute :BundleInstall
-" Para que funcione powerline inslate vim-python o vim-pyhton-jedi
+"" Para que funcione powerline inslate vim-python o vim-pyhton-jedi
 Bundle 'Lokaltog/vim-powerline'
 " Para usar pyflakes también se necesita vim-python o vim-python-jedi
 " Y posiblemente python-astroid
@@ -132,6 +132,47 @@ let g:surround_{char2nr("i")} = "{% if\1 \r..*\r &\1%}\r{% endif %}"
 let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1%}\r{% endwith %}"
 let g:surround_{char2nr("c")} = "{% comment\1 \r..*\r &\1%}\r{% endcomment %}"
 let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1%}\r{% endfor %}"
+
+" Python-mode config
+" Activate rope
+" Keys:
+" K             Show python docs
+" <Ctrl-Space>  Rope autocomplete
+" <Ctrl-c>g     Rope goto definition
+" <Ctrl-c>d     Rope show documentation
+" <Ctrl-c>f     Rope find occurrences
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 1
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 1
 
 ":nmap <F2> : :NERDTreeToggle<CR>
 :map :nt : :NERDTreeToggle<CR>
