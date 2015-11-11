@@ -31,7 +31,9 @@ Bundle 'scrooloose/nerdtree'
 "Bundle 'FuzzyFinder'
 "" non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
-
+"
+"Bundle for Ruby
+Bundle 'vim-ruby/vim-ruby'
 
 " Activamos el resaltado de sintaxis
  syntax on
