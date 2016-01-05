@@ -2,27 +2,27 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 "" My Bundle here:
 ""
 "" Para instalar los Bundle ejecute :BundleInstall
 "" Para que funcione powerline inslate vim-python o vim-pyhton-jedi
-Bundle 'Lokaltog/vim-powerline'
+Plugin 'Lokaltog/vim-powerline'
 " Para usar pyflakes también se necesita vim-python o vim-python-jedi
 " Y posiblemente python-astroid
 "Bundle 'kevinw/pyflakes-vim'
 " Python-mode bundle
-Bundle 'klen/python-mode'
+Plugin 'klen/python-mode'
 " fugitive es un plugin para commandos de git, use g<git command>
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 " NerdTree es un plugin para ver archivos como un arbol, use F2 y ? para ver
 " cómo funciona, adicione el map <F2> :NERDTreeToggle<CR>
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'
@@ -33,7 +33,8 @@ Bundle 'scrooloose/nerdtree'
 "Bundle 'git://git.wincent.com/command-t.git'
 "
 "Bundle for Ruby
-Bundle 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'
+call vundle#end()
 
 " Activamos el resaltado de sintaxis
  syntax on
