@@ -5,4 +5,10 @@ apt-get install vim-latexsuite  vim-vimoutliner
 
 and
 
-git clone https://github.com/gmarik/vundle
+git clone https://github.com/gmarik/vundle ~/.vim/bundle/Vundle.vim
+
+see the ~/.vim/bundle/Vundle.vim/README.md to configure .vimrc
+
+after that you can run vim and run
+
+:PluginInstal
