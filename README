@@ -1,5 +1,8 @@
 Copy .vimrc and .vim in the home directory.
 
+cp .vimrc ~
+cp .vim ~ -r
+
 The packages to install are
 apt-get install vim-latexsuite  vim-vimoutliner
 
@@ -11,4 +14,4 @@ see the ~/.vim/bundle/Vundle.vim/README.md to configure .vimrc
 
 after that you can run vim and run
 
-:PluginInstal
+:PluginInstall
