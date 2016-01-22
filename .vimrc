@@ -24,6 +24,7 @@ Plugin 'tpope/vim-fugitive'
 " NerdTree es un plugin para ver archivos como un arbol, use F2 y ? para ver
 " cómo funciona, adicione el map <F2> :NERDTreeToggle<CR>
 Plugin 'scrooloose/nerdtree'
+Plugin 'rking/ag.vim'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'
@@ -99,6 +100,8 @@ augroup vimrc_autocmds
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd FileType python match Excess /\%120v.*/
     autocmd FileType python set nowrap
+
+    autocmd FileType ruby compiler ruby
 augroup END
 
 set backspace=indent,eol,start
