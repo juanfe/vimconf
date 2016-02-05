@@ -11,4 +11,4 @@ see the ~/.vim/bundle/Vundle.vim/README.md to configure .vimrc
 
 after that you can run vim and run
 
-:PluginInstal
+:PluginInstall
