@@ -1,6 +1,6 @@
 " Configuration of Vundle
 set nocompatible
-filetype off
+filetype on
 
 set rtp+=~/.vim/bundle/Vundle.vim/
 ""call vundle#rc()
@@ -36,6 +36,10 @@ Plugin 'rking/ag.vim'
 "
 "Bundle for Ruby
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'tmm1/ripper-tags'
+"Plugin 'bruno-/vim-ruby-fold'
+Plugin 'vim-scripts/simplefold'
+
 call vundle#end()
 
 " Activamos el resaltado de sintaxis
