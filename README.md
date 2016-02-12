@@ -35,3 +35,10 @@ gem install ripper-tags
 ```
 
 This gem is useful to create a tags file to follow the code.
+
+After that, create the tags file within the project:
+
+```
+cd your_project/
+riper-tags -R
+```
