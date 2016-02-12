@@ -1,5 +1,8 @@
 Copy .vimrc and .vim in the home directory.
 
+cp .vimrc ~
+cp .vim ~ -r
+
 The packages to install are
 apt-get install vim-latexsuite  vim-vimoutliner exuberant-ctags
 
