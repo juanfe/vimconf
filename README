@@ -15,3 +15,9 @@ see the ~/.vim/bundle/Vundle.vim/README.md to configure .vimrc
 after that you can run vim and run
 
 :PluginInstall
+
+To install ctags for Ruby, use:
+
+gem install ripper-tags
+
+This gem is useful to create a tags file to follow the code.

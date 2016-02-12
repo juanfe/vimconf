@@ -36,7 +36,6 @@ Plugin 'rking/ag.vim'
 "
 "Bundle for Ruby
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'tmm1/ripper-tags'
 "Plugin 'bruno-/vim-ruby-fold'
 Plugin 'vim-scripts/simplefold'
 
