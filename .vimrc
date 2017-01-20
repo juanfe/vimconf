@@ -1,8 +1,9 @@
 " Configuration of Vundle
 set nocompatible
-filetype off
+filetype on
 
 set rtp+=~/.vim/bundle/Vundle.vim/
+""call vundle#rc()
 call vundle#begin()
 
 " Let Vundle manage Vundle
@@ -23,6 +24,7 @@ Plugin 'tpope/vim-fugitive'
 " NerdTree es un plugin para ver archivos como un arbol, use F2 y ? para ver
 " cómo funciona, adicione el map <F2> :NERDTreeToggle<CR>
 Plugin 'scrooloose/nerdtree'
+Plugin 'rking/ag.vim'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'
@@ -34,6 +36,9 @@ Plugin 'scrooloose/nerdtree'
 "
 "Bundle for Ruby
 Plugin 'vim-ruby/vim-ruby'
+"Plugin 'bruno-/vim-ruby-fold'
+Plugin 'vim-scripts/simplefold'
+
 call vundle#end()
 
 " Activamos el resaltado de sintaxis
@@ -98,6 +103,8 @@ augroup vimrc_autocmds
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd FileType python match Excess /\%120v.*/
     autocmd FileType python set nowrap
+
+    autocmd FileType ruby compiler ruby
 augroup END
 
 set backspace=indent,eol,start
