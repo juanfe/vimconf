@@ -124,4 +124,14 @@ cd your_project/
 riper-tags -R
 ```
 
+## Vundle
 
+To install the vundle run inside vim:
+
+```
+Launch vim and run :PluginInstall
+```
+
+See [1]
+
+[1] https://github.com/VundleVim/Vundle.vim
