@@ -63,6 +63,9 @@ call vundle#end()
  "comportamiento de backspace
  set backspace=indent,eol,start
 
+"Save write feature to avoid interference with JavaScript compilation"
+set backupcopy=yes
+
 "Numeros de linea
 "set nu
 
@@ -187,3 +190,7 @@ let g:pymode_folding = 1
 :map <F2> : :NERDTreeToggle<CR>
 :map :nt :NERDTreeToggle<CR>
 :nmap :ni : :setlocal noautoindent <CR> :setlocal nocindent <CR> :setlocal nosmartindent <CR> :setlocal indentexpr=
+
+if has('gui_running')
+    set guifont=Courier 10
+endif
