@@ -39,6 +39,9 @@ Plugin 'vim-ruby/vim-ruby'
 "Plugin 'bruno-/vim-ruby-fold'
 Plugin 'vim-scripts/simplefold'
 
+"Plugin for tabnine-vim AI completion code
+Plugin 'zxqfl/tabnine-vim'
+
 call vundle#end()
 
 " Activamos el resaltado de sintaxis
